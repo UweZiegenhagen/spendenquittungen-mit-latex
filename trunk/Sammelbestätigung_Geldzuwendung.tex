@@ -8,18 +8,22 @@
 \usepackage{paralist}
 \usepackage{mdframed}
 \usepackage{wasysym}
-\usepackage[]{tabu}
+\usepackage{tabu}
+\usepackage{ifthen}
+
+\newboolean{sammel} % Sammelbestätigung
+\setboolean{sammel}{true}
 
 \renewcommand{\familydefault}{\sfdefault}
 \RequirePackage[scaled=0.9]{helvet}
 \pagestyle{empty}
 
-\newcommand{\no}{\scalebox{1.5}{\XBox}} % \CheckedBox
+\newcommand{\no}{\scalebox{1.5}{\XBox}~} % \CheckedBox
 \newcommand{\yes}{\scalebox{1.5}{\Square}}
 \usepackage[]{eurosym}
 
 \usepackage{xcolor}
-\usepackage[a4paper,left=2cm,right=2cm,top=1cm]{geometry}
+\usepackage[a4paper,left=2cm,right=2cm,top=1cm,bottom=1cm]{geometry}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
 
@@ -43,31 +47,37 @@
 }
 
 \begin{document}
-\MyFormBox[0.0cm]{Aussteller (Bezeichnung und Anschrift der steuerbegünstigten Einrichtung)}{Name des Vereins \\ Anschrift des Vereins \\ PLZ und Ort}
+\MyFormBox[0.0cm]{Aussteller (Bezeichnung und Anschrift der steuerbegünstigten Einrichtung)}{Name des Vereins, Anschrift des Vereins,  PLZ und Ort}
 
-{\bfseries\large Sammelbestätigung über Geldzuwendungen/Mitgliedsbeiträge}\vspace*{1em}
- 
+{\bfseries\large \ifthenelse{\boolean{sammel}}{Sammelbestätigung}{Bestätigung} über Geldzuwendungen/Mitgliedsbeiträge}\vspace*{1em}
+
 im Sinne des § 10b des Einkommensteuergesetzes an eine der in § 5 Abs. 1 Nr. 9 des Körperschaftsteuergesetzes bezeichneten Körperschaften, Personenvereinigungen oder Vermögensmassen 
 
-\MyFormBox[0.0cm]{Name und Anschrift des Begünstigten}{Empfänger der Spendenquittung}
-
+\MyFormBox[0.0cm]{Name und Anschrift des Zuwendenden}{<Empfänger der Spendenquittung>}
 
 \begin{tabu}{|[1pt]p{0.3\textwidth}|[1pt]p{0.32\textwidth} |[1pt]p{0.3\textwidth}|[1pt]} \tabucline[1pt]{-}
-\scriptsize Summe der Zuwendungen - in Ziffern - & \scriptsize- in Buchstaben - & \scriptsize Zeitraum der Aufwendungen \\ 
+\scriptsize \ifthenelse{\boolean{sammel}}{Summe}{Betrag} der Zuwendungen - in Ziffern - & \scriptsize- in Buchstaben - & \scriptsize \ifthenelse{\boolean{sammel}}{Zeitraum der Sammelbestätigung}{Tag der Zuwendung} \\ 
 \vspace*{1em} & & \\ 
 123,45 \euro & --- Einhundertdreiundzwangig --- & 01.01.2001--31.12.2001 \\
 \vspace*{1em} & & \\ \tabucline[1pt]{-}
 \end{tabu}
 
-\vspace*{0.5em}Die einzelnen Zuwendungen sind der Aufstellung auf der Rückseite zu entnehmen.
+\ifthenelse{\boolean{sammel}}{}{\vspace*{0.5em}Es handelt sich um den Verzicht auf Erstattung von Aufwendungen: 	\hspace{1em}	Ja  \yes	\hspace{1em}	Nein  \no}
 
-\vspace*{0.5em}Es handelt sich um den Verzicht auf Erstattung von Aufwendungen: 	\hspace{1em}	Ja  \yes	\hspace{1em}	Nein  \no
+\vspace*{1.5em}Wir sind wegen Förderung (Angabe des begünstigten Zwecks / der begünstigten Zwecke) \vspace{1em}
 
-\vspace*{0.5em}Wir sind wegen Förderung (Angabe des begünstigten Zwecks / der begünstigten Zwecke) Nr. 1, 2, 3 und 4 AO durch vorläufige Bescheinigung des Finanzamtes Ortsname, StNr. 123/4567/8910, vom 01.01.2001 ab 1.02.2010 als steuerbegünstigten Zwecken dienend anerkannt. 
+% Entweder
+\no nach dem letzten uns zugegangenen Freistellungsbescheid bzw. nach der Anlage zum Körperschaftssteuerbescheid des Finanzamts \hspace{5em} StNr \hspace{5em} vom \hspace{5em} nach §~5 Abs. 1 Nr.~9 des Körperschaftssteuergesetzes von der Körperschaftssteuer und nach §~3 Nr.~6 des Gewerbesteuergesetzes von der Gewerbesteuer befreit. \vspace{2em}
+ 
+% oder => siehe den Text hinter \end{document}
+ 
+\begin{mdframed}[style=MyFormStyle]%
+Es wird bestätigt, dass die Zuwendung nur zur Förderung der begünstigten Zwecke 1, 2, 3 und 4 AO verwendet wird. 
+\end{mdframed} 
 
-\vspace*{0.5em}Es wird bestätigt, dass die Zuwendung nur zur Förderung der begünstigten Zwecke 1, 2, 3 und 4 AO verwendet wird. 
+\ifthenelse{\boolean{sammel}}{\vspace*{0.5em}Es wird bestätigt, dass über die in der Gesamtsumme enthaltenen Zuwendungen keine weiteren Bestätigungen, weder formelle Zuwendungsbestätigungen noch Beitragsquittungen o.ä., ausgestellt wurden und werden. 
 
-\vspace*{0.5em}Es wird bestätigt, dass über die in der Gesamtsumme enthaltenen Zuwendungen keine weiteren Bestätigungen, weder formelle Zuwendungsbestätigungen noch Beitragsquittungen o.ä., ausgestellt wurden und werden.
+\vspace*{0.5em}Ob es sich um den Verzicht auf Erstattung von Aufwendungen handelt, ist der Anlage zur Sammelbestätigung zu entnehmen.}{}
 
 \vspace*{2.5em} 
 
@@ -85,16 +95,21 @@ Diese Bestätigung wird nicht als Nachweis für die steuerliche Berücksichtigun
 
 \clearpage
 
-{\bfseries\large Auflistung der einzelnen Geldzuwendungen/Mitgliedsbeiträge:} \vspace*{2em}
+{\bfseries\large Anlage zur Sammelbestätigung} \vspace*{2em}
 
-\begin{tabular}{p{0.15\textwidth}p{0.12\textwidth}p{0.55\textwidth}} \toprule
-\bfseries Datum & \bfseries Betrag & \bfseries Art \\ \midrule
-01.01.2013 & 123,00 \euro & Spende \\ \midrule[1pt]
-Summe: & 123,00 \euro& \\ \bottomrule[1pt]\bottomrule[1pt]
+\begin{tabular}{p{0.2\textwidth}p{0.2\textwidth}p{0.3\textwidth}r} \toprule
+\bfseries\footnotesize Datum der Zuwendung & \bfseries\footnotesize Art der Zuwendung & \bfseries\footnotesize Verzicht auf die Erstattung von Aufwendungen (ja/nein) & \bfseries\footnotesize Betrag \\ \midrule
+01.01.2013 & Mitgliedsbeitrag & nein & 123,00 \euro \\ \midrule[1pt]
+Summe: & & & 123,00 \euro \\ \bottomrule[1pt]\bottomrule[1pt]
 \end{tabular}
 
 
 \end{document}
+
+ % für vorläufige Bescheinigung
+ \no Wir sind wegen Förderung (Angabe des begünstigten Zwecks / der begünstigten Zwecke) \vspace*{2em} durch vorläufige Bescheinigung des Finanzamts \hspace{5em} StNr \hspace{5em} vom \hspace{5em} ab 
+ \hspace{5em} als begünstigten Zwecken dienend anerkannt.
+
 
 %% Use this if you want it electronically editable PDF.
 \usepackage{hyperref}
