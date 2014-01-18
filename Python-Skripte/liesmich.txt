@@ -1,0 +1,1 @@
+Dieses Verzeichnis enthält einige Python-Skripte, die auf der Basis von MySQL und Python mit Jinja2 eine Automatisierung der Erstellung von Spendenquittungen erlauben.
