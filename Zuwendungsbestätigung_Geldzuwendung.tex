@@ -23,8 +23,8 @@
 \RequirePackage[scaled=0.9]{helvet}
 \pagestyle{empty}
 
-\newcommand{\boxchecked}{\scalebox{1.5}{\XBox}~} % \CheckedBox
-\newcommand{\boxunchecked}{\scalebox{1.5}{\Square}}
+\newcommand{\marked}{\scalebox{1.5}{\XBox}~} % \CheckedBox
+\newcommand{\notmarked}{\scalebox{1.5}{\Square}}
 \usepackage[]{eurosym}
 
 \usepackage{xcolor}
@@ -67,16 +67,16 @@
 \vspace*{1em} & & \\ \tabucline[1pt]{-}
 \end{tabu}
 
-\ifthenelse{\boolean{sammel}}{}{\vspace*{0.5em}Es handelt sich um den Verzicht auf Erstattung von Aufwendungen: 	\hspace{1em}	Ja  \boxunchecked	\hspace{1em}	Nein  \boxunchecked}
+\ifthenelse{\boolean{sammel}}{}{\vspace*{0.5em}Es handelt sich um den Verzicht auf Erstattung von Aufwendungen: 	\hspace{1em}	Ja  \notmarked	\hspace{1em}	Nein  \notmarked}
 
 \vspace*{1.5em}Wir sind wegen Förderung (Angabe des begünstigten Zwecks / der begünstigten Zwecke) \vspace{1em}
 
 % Vermutlich entweder diesen Absatz
-\boxunchecked nach dem letzten uns zugegangenen Freistellungsbescheid bzw. nach der Anlage zum Körperschaftssteuerbescheid des Finanzamts \hspace{5em} StNr \hspace{5em} vom \hspace{5em} für den letzten Veranlagungszeitraum \hspace{5em} nach §~5 Abs. 1 Nr.~9 des Körperschaftssteuergesetzes von der Körperschaftssteuer und nach §~3 Nr.~6 des Gewerbesteuergesetzes von der Gewerbesteuer befreit. \vspace{2em}
+\notmarked nach dem letzten uns zugegangenen Freistellungsbescheid bzw. nach der Anlage zum Körperschaftssteuerbescheid des Finanzamts \hspace{5em} StNr \hspace{5em} vom \hspace{5em} für den letzten Veranlagungszeitraum \hspace{5em} nach §~5 Abs. 1 Nr.~9 des Körperschaftssteuergesetzes von der Körperschaftssteuer und nach §~3 Nr.~6 des Gewerbesteuergesetzes von der Gewerbesteuer befreit. \vspace{2em}
  
  
 % oder diesen (hat wohl den vorläufigen ersetzt)
-\boxunchecked Die Einhaltung der satzungsmäßigen Voraussetzungen nach den §§ 51, 59, 60 und 61 AO wurde vom Finanzamt \hspace{5em} StNr. \hspace{5em} mit Bescheid vom \hspace{5em} nach § 60 AO gesondert festgestellt. Wir fördern nach unserer Satzung (Angabe des begünstigten Zwecks / der begünstigten Zwecke) \ldots
+\notmarked Die Einhaltung der satzungsmäßigen Voraussetzungen nach den §§ 51, 59, 60 und 61 AO wurde vom Finanzamt \hspace{5em} StNr. \hspace{5em} mit Bescheid vom \hspace{5em} nach § 60 AO gesondert festgestellt. Wir fördern nach unserer Satzung (Angabe des begünstigten Zwecks / der begünstigten Zwecke) \ldots
  
 \begin{mdframed}[style=MyFormStyle]%
 Es wird bestätigt, dass die Zuwendung nur zur Förderung der begünstigten Zwecke 1, 2, 3 und 4 AO verwendet wird. 
