@@ -1,0 +1,68 @@
+﻿CREATE TABLE `Buchungen` (
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Datum` date NOT NULL,
+  `Beschreibung` varchar(100) DEFAULT NULL,
+  `Verwendungszweck` varchar(200) DEFAULT NULL,
+  `Kategorie` varchar(100) DEFAULT NULL,
+  `Klasse` smallint(6) DEFAULT NULL,
+  `Betrag` double NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=594 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `kardinal` (
+  `ID` int(11) NOT NULL,
+  `kardinal` varchar(50) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Stammdaten` (
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Anrede` varchar(100) DEFAULT NULL,
+  `Vorname` varchar(100) DEFAULT NULL,
+  `Name` varchar(100) DEFAULT NULL,
+  `BuchungsID` varchar(100) DEFAULT NULL,
+  `Adresszusatz` varchar(100) DEFAULT NULL,
+  `Strasse` varchar(100) DEFAULT NULL,
+  `PLZ` varchar(100) DEFAULT NULL,
+  `Ort` varchar(100) DEFAULT NULL,
+  `eMail` varchar(100) DEFAULT NULL,
+  `MLintern` smallint(6) DEFAULT NULL,
+  `Schluessel` tinyint(4) NOT NULL,
+  `Telefon` varchar(100) DEFAULT NULL,
+  `Mobil` varchar(100) DEFAULT NULL,
+  `Mitgliedsart` varchar(10) DEFAULT NULL,
+  `Beitrag` double DEFAULT NULL,
+  `Kommentar` varchar(100) DEFAULT NULL,
+  `MitgliedSeit` date DEFAULT NULL,
+  `MitgliedBis` date DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`uwezie_9`@`%` SQL SECURITY DEFINER VIEW `V_Stammdatenabfrage` AS select `Stammdaten`.`ID` AS `ID`,`Stammdaten`.`Vorname` AS `Vorname`,`Stammdaten`.`Name` AS `Name`,`Stammdaten`.`Beitrag` AS `Beitrag`,`Stammdaten`.`MitgliedSeit` AS `MitgliedSeit`,`Stammdaten`.`eMail` AS `email` from `Stammdaten` where (`Stammdaten`.`Mitgliedsart` <> 'E');
+
+DELIMITER $$
+CREATE DEFINER=`uwezie_9`@`%` FUNCTION `fs_getAddress`(nummer int) RETURNS varchar(300) CHARSET utf8
+BEGIN
+	RETURN (select Concat(coalesce(Vorname,'')," ", coalesce(Name,''),", ",coalesce(Strasse,'') ,", ",coalesce(PLZ,'')," ", coalesce(Ort,'')) from Stammdaten where ID = nummer);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`uwezie_9`@`%` FUNCTION `fs_getkardinal`(nummer int) RETURNS varchar(50) CHARSET utf8
+BEGIN
+		RETURN (SELECT kardinal from kardinal WHERE  ID = nummer);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`uwezie_9`@`%` FUNCTION `fs_getname`(nummer int, typ char) RETURNS varchar(100) CHARSET utf8
+BEGIN
+	IF typ = 'c' THEN
+		RETURN (SELECT TRIM(CONCAT(Coalesce(Vorname,"")," ",Coalesce(Name," "))) FROM Stammdaten WHERE  ID = nummer);
+	ELSEIF typ = 'f' THEN
+		RETURN (SELECT Coalesce(Vorname,"") FROM Stammdaten WHERE  ID = nummer);
+	ELSEIF typ = 'l' THEN
+		RETURN (SELECT Coalesce(Name,"") FROM Stammdaten WHERE  ID = nummer);		
+	END IF;
+END$$
+DELIMITER ;
