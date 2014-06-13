@@ -1,0 +1,4 @@
+server=serverip
+login=username
+password=1234567890
+database=NameDerDatenbank
