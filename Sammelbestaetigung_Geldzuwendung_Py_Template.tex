@@ -1,0 +1,116 @@
+% Bestätigung über Sachzuwendungen, 2014
+% Uwe Ziegenhagen, ziegenhagen@gmail.com
+% http://code.google.com/p/spendenquittungen-mit-latex/
+% 
+
+\documentclass[11pt,ngerman]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{booktabs}
+\usepackage{babel}
+\usepackage{graphicx,dashrule}
+\usepackage{csquotes}
+\usepackage{paralist}
+\usepackage{mdframed}
+\usepackage{wasysym}
+\usepackage{tabu}
+\usepackage{ifthen}
+
+\newcommand{\VAR}[1]{#1}
+\newcommand{\BLOCK}[1]{#1}
+
+\newboolean{sammel} % Sammelbestätigung
+\setboolean{sammel}{true}
+
+\renewcommand{\familydefault}{\sfdefault}
+\RequirePackage[scaled=0.9]{helvet}
+\pagestyle{empty}
+
+\newcommand{\mychecked}{\scalebox{1.5}{\XBox}~} % \mycheckedBox
+\newcommand{\unmychecked}{\scalebox{1.5}{\Square}}
+\usepackage[]{eurosym}
+
+\usepackage{xcolor}
+\usepackage[a4paper,left=2cm,right=2cm,top=1cm,bottom=1cm]{geometry}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+
+\mdfdefinestyle{MyFormStyle}{%
+    linewidth=1pt,
+    skipbelow=\topskip,
+    skipabove=\topskip
+}
+
+\newcommand{\MyForm}[2][1.0cm]{%
+    \begin{mdframed}[style=MyFormStyle]%
+    {\noindent\footnotesize#2}\vspace{#1}%
+    \end{mdframed}%
+}
+
+\newcommand{\MyFormBox}[3][1.0cm]{%
+    \begin{mdframed}[style=MyFormStyle]%
+    {\noindent\footnotesize#2 \vspace*{1em} \par\normalsize #3}\vspace*{#1}%
+    \end{mdframed}%
+}
+
+\begin{document}
+\MyFormBox[0.0cm]{Aussteller (Bezeichnung und Anschrift der steuerbegünstigten Einrichtung)}{Name and Address}
+
+{\bfseries\large \ifthenelse{\boolean{sammel}}{Sammelbestätigung}{Bestätigung} über Geldzuwendungen/Mitgliedsbeiträge}\vspace*{1em}
+
+im Sinne des § 10b des Einkommensteuergesetzes an eine der in § 5 Abs. 1 Nr. 9 des Körperschaftsteuergesetzes bezeichneten Körperschaften, Personenvereinigungen oder Vermögensmassen 
+
+\MyFormBox[0.0cm]{Name und Anschrift des Zuwendenden}{\VAR{Spender}}
+
+\begin{tabu}{|[1pt]p{0.3\textwidth}|[1pt]p{0.32\textwidth} |[1pt]p{0.3\textwidth}|[1pt]} \tabucline[1pt]{-}
+\scriptsize \ifthenelse{\boolean{sammel}}{Gesamtbetrag}{Betrag} der Zuwendung - in Ziffern - & \scriptsize- in Buchstaben - & \scriptsize \ifthenelse{\boolean{sammel}}{Zeitraum der Sammelbestätigung:}{Tag der Zuwendung} \\ 
+\vspace*{1em} & & \\ 
+\VAR{Summe}  & \VAR{kardinal} & 01.01.2017 -- 31.12.2017 \\
+\vspace*{1em} & & \\ \tabucline[1pt]{-}
+\end{tabu}
+
+\ifthenelse{\boolean{sammel}}{}{\vspace*{0.5em}Es handelt sich um den Verzicht auf Erstattung von Aufwendungen: 	\hspace{1em}	Ja  \mychecked	\hspace{1em}	Nein  \unmychecked}
+
+\vspace*{1.5em}
+\mychecked\,Wir sind wegen Förderung von Nr.\,1 (Förderung von Wissenschaft und Forschung) und  Nr.\,7 (Förderung der Erziehung, Volks- und Berufsbildung sowie der Studentenhilfe) des §52 AO nach dem Freistellungsbescheid bzw. nach der Anlage 
+zum Körperschaftssteuerbescheid des Finanzamts STEUERNUMMER , vom DATUM für den letzten Veranlagungszeitraum 2012--2014 nach §~5 Abs. 1 Nr.~9 des Körperschaftssteuergesetzes von der Körperschaftssteuer und nach §~3 Nr.~6 des Gewerbesteuergesetzes von der Gewerbesteuer befreit. \vspace{1em}
+
+\mychecked\,Die Einhaltung der satzungsmäßigen Voraussetzungen nach den §§ 51, 59, 60 und 61 AO wurde vom FINANZAMT, mit Bescheid vom DATUM nach § 60 AO gesondert festgestellt. Wir fördern nach unserer Satzung Nr. 1 (Förderung von Wissenschaft und Forschung) und und Nr. 7 (Förderung der Erziehung, Volks- und Berufsbildung sowie der Studentenhilfe) des§52 Abs. 2 Satz 1 Nr. 1 und 7 AO.
+ 
+\begin{mdframed}[style=MyFormStyle]%
+\footnotesize Es wird bestätigt, dass die Zuwendung nur zur Förderung von Nr.\,1 (Förderung von Wissenschaft und Forschung) und  Nr.\,7 (Förderung der Erziehung, Volks- und Berufsbildung einschließlich der Studentenhilfe) des §52 AO verwendet wird. \vspace{0.5em}
+
+\textbf{Nur für steuerbegünstigte Einrichtungen, bei denen die Mitgliedsbeiträge steuerlich nicht absetzbar sind:} \\
+\unmychecked\, Es wird bestätigt, dass es sich nicht um einen Mitgliedsbeitrag handelt, dessen Abzug nach §\,10 Abs. 1 des Einkommensteuergesetzes ausgeschlossen ist. 
+
+\end{mdframed} 
+
+\ifthenelse{\boolean{sammel}}{\vspace*{0.5em}Es wird bestätigt, dass über die in der Gesamtsumme enthaltenen Zuwendungen keine weiteren Bestätigungen, weder formelle Zuwendungsbestätigungen noch Beitragsquittungen o.ä., ausgestellt wurden und werden. 
+
+\vspace*{0.5em}Ob es sich um den Verzicht auf Erstattung von Aufwendungen handelt, ist der Anlage zur Sammelbestätigung zu entnehmen.}{}
+
+\vspace*{2.5em} 
+
+ORT, den \today \hspace*{20em} SCHATZMEISTER
+
+\hrule
+
+\vspace*{0.5em} (Ort, Datum und Unterschrift des Zuwendungsempfängers) 
+
+\paragraph{Hinweis:} Wer vorsätzlich oder grob fahrlässig eine unrichtige Zuwendungsbestätigung erstellt oder veranlasst, dass 
+Zuwendungen nicht zu den in der Zuwendungsbestätigung angegebenen steuerbegünstigten Zwecken verwendet 
+werden, haftet für die entgangene Steuer (§ 10b Abs. 4 EStG, § 9 Abs. 3 KStG, § 9 Nr. 5 GewStG). 
+
+Diese Bestätigung wird nicht als Nachweis für die steuerliche Berücksichtigung der Zuwendung anerkannt, wenn das Datum des Freistellungsbescheides länger als 5 Jahre bzw. das Datum der Feststellung der Einhaltung der satzungsmäßigen Voraussetzungen nach § 60 Abs. 1 AO länger als 3 Jahre seit Ausstellung des Bescheides zurückliegt (§63 Abs. 5 AO). 
+
+\vfill \footnotesize{\textcolor{gray}{Mitgliedsnummer \VAR{ID}}}
+
+\clearpage
+
+{\bfseries\large Anlage zur Sammelbestätigung} \vspace*{2em}
+
+
+\VAR{Buchungen}
+
+\end{document}
